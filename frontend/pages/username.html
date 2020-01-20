@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-5 col-md-6 m-auto mb-4">
+            <section class="form-elegant">
+                <div class="card">
+                    <form class="card-body mx-4" ng-submit="sendUsername(userData)" name="loginForm" novalidate>
+                        <div class="text-center">
+                            <h3 class="dark-grey-text mb-5">
+                                <strong>Forgot <span class="green-text">Username</span></strong>
+                            </h3>
+                        </div>
+                        <div class="md-form">
+                            <input ng-disabled="disabled" type="text" id="Form-name" class="form-control" ng-model="userData.email"
+                                name="email" required>
+                            <label for="Form-name">Email</label>
+                            <span style="color:red" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                                <span ng-show="loginForm.email.$error.required">Email is required.</span>
+                            </span>
+                        </div>
+                        <div class="text-center mb-3">
+                            <button type="submit" class="btn btn-success btn-block btn-rounded z-depth-1a waves-effect waves-light" ng-disabled="loginForm.$invalid || disabled">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <!-- <div class="col-lg-5 col-md-6 m-auto mt-4 zoomIn animated" ng-show="successMsg">
+            <div class="alert alert-success">{{successMsg}}</div>
+        </div>
+        <div class="col-lg-5 col-md-6 m-auto  mt-4 zoomIn animated" ng-show="errorMsg">
+            <div class="alert alert-danger">{{errorMsg}} <a href="#!/resend" ng-show="expired" class="btn btn-success btn-sm btn-rounded z-depth-1a waves-effect waves-light">Resend activation link</a></div>
+        </div> -->
+        <!-- <div class="col-lg-5 col-md-6 m-auto  mt-4 zoomIn animated" ng-show="errorMsgFacebook">
+                        <div class="alert alert-danger">{{errorMsgFacebook}}</div>
+                    </div> -->
+        <div class="col-lg-5 col-md-6 m-auto text-center mt-4" ng-show="loading">
+            <i class="fas fa-spinner fa-2x fa-spin"></i><br>
+            Please wait...
+        </div>
+    </div>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>

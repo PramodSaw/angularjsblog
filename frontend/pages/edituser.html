@@ -1,0 +1,141 @@
+<div class="container mt-5">
+    <!-- Heading -->
+    <div class="row text-center">
+        <div class="container">
+            <h2 class="section-heading">Edit User</h2>
+            <h3 class="section-subheading text-muted">This page allows you to edit a user's name, e-mail, or
+                permissions.</h3>
+        </div>
+    </div>
+    <!-- Heading -->
+
+    <br>
+    <div class="classic-tabs">
+
+        <!-- Nav tabs -->
+        <div class="tabs-wrapper">
+            <ul class="nav tabs-cyan" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="panel36" role="tab"
+                        aria-selected="true" ng-click="namePhase();" ng-class="nameTab">Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="panel37" role="tab"
+                        aria-selected="false" ng-click="usernamePhase();" ng-class="usernameTab">Username</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="panel38" role="tab"
+                        aria-selected="false" ng-click="emailPhase();" ng-class="emailTab">Email</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light waves-effect waves-light" data-toggle="tab" href="panel39" role="tab"
+                        aria-selected="false" ng-click="permissionsPhase();" ng-class="permissionsTab">Permission</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panels -->
+        <div class="tab-content card">
+
+            <!-- Phase One: Name Tab -->
+            <form name="nameForm" class="px-3" role="tabpanel" ng-show="phase1"
+                ng-submit="updateName(newName, nameForm.name.$valid)" novalidate>
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <div class="md-form">
+                            <input ng-disabled="disabled" type="text" id="Form-name" class="form-control"
+                                ng-model="newName" name="name" maxlength="30" minlength="3" required
+                                ng-pattern="/^[a-zA-Z\s]+$/">
+                            <label for="Form-name">Current Name</label>
+                            <span class="text-red" ng-show="nameForm.name.$dirty && nameForm.name.$invalid">
+                                <span ng-show="nameForm.name.$error.required">Name is required.<br></span>
+                            </span>
+                            <span class="text-red"
+                                ng-show="nameForm.name.$error.minlength  || nameForm.name.$error.pattern">
+                                Must be at least 3 characters, max 30, no special characters or numbers.<br>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- Update Button -->
+                        <button ng-disabled="disabled" class="btn btn-primary btn-md" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Phase One: Name -->
+
+            <!-- Break -->
+
+            <!-- Phase Two: Username Tab -->
+            <form name="usernameForm" class="px-3" role="tabpanel" ng-show="phase2"
+                ng-submit="updateUsername(newUsername, usernameForm.username.$valid)" novalidate>
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <div class="md-form">
+                            <input type="text" id="Form-username" class="form-control" ng-model="newUsername"
+                                name="username" maxlength="30" minlength="3" required>
+                            <label for="Form-username" class="">Current Username</label>
+                            <span class="text-red"
+                                ng-show="usernameForm.username.$dirty && usernameForm.username.$invalid">
+                                <span ng-show="usernameForm.username.$error.required">Username is required.<br></span>
+                            </span>
+                            <span class="text-red" ng-show="usernameForm.username.$error.minlength">
+                                minLength should be 3<br>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- Update Button -->
+                        <button ng-disabled="disabled" class="btn btn-primary btn-md" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Phase Two: Username Tab -->
+            <!-- Phase Three: E-mail Tab -->
+            <form name="emailForm" class="px-3" role="tabpanel" ng-show="phase3"
+                ng-submit="updateEmail(newEmail, emailForm.email.$valid)" novalidate>
+                <div class="row my-3">
+                    <div class="col-md-6">
+                        <div class="md-form">
+                            <input type="email" name="email" id="Form-email5" class="form-control" ng-model="newEmail"
+                                required ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" maxlength="30">
+                            <label for="Form-email5" class="">Current Email</label>
+                            <span class="text-red" ng-show="regForm.email.$dirty && regForm.email.$invalid">
+                                <span ng-show="regForm.email.$error.required">Email is required.</span>
+                                <span ng-show="regForm.email.$error.email || regForm.email.$error.pattern">Invalid
+                                    email address.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <!-- Update Button -->
+                        <button ng-disabled="disabled" class="btn btn-primary btn-md" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Phase Three: E-mail Tab -->
+            <!-- Phase Four: Permission Tab -->
+            <div ng-show="phase4" class="p-4" role="tabpanel">
+                <label>Current Permission:&nbsp&nbsp </label><strong>{{ newPermission }}</strong>
+                <br>
+                <!-- User Permission Button -->
+                <button ng-disabled="disableUser" ng-click="updatePermissions('user');" type="button"
+                    class="btn btn-success">User</button>&nbsp
+                <!-- Moderator Permission Button -->
+                <button ng-disabled="disableModerator" ng-click="updatePermissions('moderator');" type="button"
+                    class="btn btn-info">Moderator</button>&nbsp
+                <!-- Admin Permission Button -->
+                <button ng-disabled="disableAdmin" ng-click="updatePermissions('admin');" type="button"
+                    class="btn btn-warning">Admin</button>
+            </div>
+            <!-- Phase Four: Permission Tab -->
+        </div>
+        <br>
+
+        <!-- Custom Message -->
+        <div class="row">
+            <div class="col-sm-12 show-hide-message" ng-show="successMsg || errorMsg ">
+                <div ng-class="alert">{{ successMsg || errorMsg }}</div>
+            </div>
+        </div>
+    </div>
+    <toaster-container toaster-options="{'close-button':true}"></toaster-container>

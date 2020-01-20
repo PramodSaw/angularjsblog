@@ -1,0 +1,140 @@
+<div class="container mt-3 mt-sm-5">
+  <div class="row posts">
+    <div class="col-sm-12">
+      <div class="card">
+        <!--Card image-->
+        <div class="view overlay">
+          <img err-src="images/default.jpg" ng-src="images/uploads/{{post.postImage}}" class="card-img-top"
+            alt="sample">
+          <a>
+            <div class="mask rgba-white-slight waves-effect waves-light"></div>
+          </a>
+        </div>
+        <div class="blog-date text-white position-absolute text-center">
+          <h2 class="p-1 m-0">{{post.publishDate | date : "dd"}}</h2>
+          <span class="p-1">{{post.publishDate | date : "MMM yy"}}</span>
+      </div>
+        <div class="rgba-indigo-slight">
+          <ul class="list-unstyled list-inline font-small my-2">
+            <li class="list-inline-item px-2">
+              <a href="#" class="mdb-color-text">
+                <i class="far fa-user pr-1"></i> {{post.createdBy}}</a>
+            </li>
+            <li class="list-inline-item px-2">
+              <a href="javascript:void(0)" ng-click="gotoElement('comment')" class="mdb-color-text">
+                <i class="far fa-comments pr-1"></i>{{post.comments.length}}</a>
+            </li>
+            <li class="list-inline-item px-2" >
+              <div class="dropdown">
+                <a class="mdb-color-text" data-toggle="dropdown">
+                  <i class="far fa-thumbs-up pr-1"  ng-click="likeBlog()" ng-class="{textBlue: name === post.likedBy[likedUser]}"> </i>{{post.likes}}</a>
+                <div class="dropdown-menu" ng-hide="post.likes === 0">
+                  <h5 class="dropdown-header">Liked By</h5>
+                  <a class="dropdown-item" href="#" ng-repeat="likedBy in post.likedBy">{{likedBy}}</a>
+                </div>
+              </div>
+
+            </li>
+            <li class="list-inline-item px-2">
+              <div class="dropdown">
+                <a class="mdb-color-text" data-toggle="dropdown">
+                  <i class="far fa-thumbs-down pr-1" ng-class="{textBlue: name === post.dislikedBy[dislikedUser]}" ng-click="dislikeBlog()"> </i>{{post.dislikes}}</a>
+                <div class="dropdown-menu" ng-hide="post.dislikes === 0">
+                  <h5 class="dropdown-header">Disliked By</h5>
+                  <a class="dropdown-item" href="#" ng-repeat="dislikedBy in post.dislikedBy">{{dislikedBy}}</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!--Card content-->
+        <div class="card-body">
+          <!--Title-->
+          <h3 class="card-title mb-3"><b>{{post.postHead | replace:'-':' '}}</b></h3>
+          <!--Text-->
+          <p class="font-small grey-dark-text mb-0" ng-bind-html="post.postContent"></p>
+        </div>
+        <section class="mt-4" id="comment">
+          <!-- Leave a reply -->
+          <div class="card-header border-0 font-weight-bold">Leave a comment</div>
+          <!-- Reply form -->
+          <form action="" class="pr-2 mt-3" enctype="multipart/form-data">
+            <input type="hidden" name="" id="" ng-model='post._id'>
+            <div class="md-form input-group mt-0 px-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text align-items-start md-addon pr-4"><i class="fas fa-pencil-alt"></i></span>
+              </div>
+              <textarea class="form-control md-textarea pl-0" rows="5" placeholder="Write something here"
+                aria-describedby="with-textarea" ng-model="post.comment"></textarea>
+            </div>
+            <div class="text-center mt-4">
+              <button class="btn btn-default btn-rounded btn-md waves-effect waves-light"
+                ng-click="commentSubmit()">Comment</button>
+            </div>
+          </form>
+          <!-- Reply form -->
+        </section>
+        <section class="my-4">
+          <!-- Card header -->
+          <div class="card-header border-0 font-weight-bold">{{post.comments.length}} comments</div>
+          <div class="media d-block d-md-flex mt-4 px-3" ng-repeat="comment in post.comments | orderBy: '-commentDate'">
+              <img ng-src="images/profile/{{comment.userImage}}" class="card-img-64 d-flex mx-auto mb-3 rounded-circle" err-src="images/default.jpg">
+            <div class="media-body text-center text-md-left ml-md-3 ml-0">
+              <h5 class="font-weight-bold mt-0">
+                <a href="">{{comment.commentator}}</a>
+                
+                <span class="float-right small">{{comment.commentDate | date : "dd MMM, y"}}</span>
+              </h5>
+              <div>{{comment.comment}}</div>
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal1"
+                   ng-value="comment._id" ng-click="replyBtn($event)">
+                  <i class="fas fa-reply"></i> Reply
+                </button>
+              <div class="media d-block d-md-flex mt-4" ng-repeat="reply in comment.replies">
+                <img ng-src="images/profile/{{comment.userImage}}"  class="card-img-64 d-flex mx-auto mb-3 rounded-circle" err-src="images/default.jpg">
+                <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                  <h5 class="font-weight-bold mt-0">
+                    <a href="">{{reply.name}}</a>
+                  </h5>
+                  {{reply.reply}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Reply</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="" class="pr-2" name="" enctype="multipart/form-data" novalidate>
+          <input type="hidden" ng-model="reply.post_id" />
+          <input type="hidden" ng-model="reply.comments_id" />
+          <div class="md-form input-group mt-0 px-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text align-items-start md-addon pr-4"><i class="fas fa-pencil-alt"></i></span>
+            </div>
+            <textarea class="form-control md-textarea pl-0" rows="5" placeholder="Write something here"
+              aria-describedby="with-textarea" ng-model="reply.reply"></textarea>
+          </div>
+          <div class="text-center mt-4">
+            <button class="btn btn-default btn-rounded btn-md waves-effect waves-light"
+              ng-click="replySubmit()" ng-disabled="editPost.$error.required">Reply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>

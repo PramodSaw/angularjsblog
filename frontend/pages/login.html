@@ -1,0 +1,83 @@
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-5 col-md-6 m-auto mb-4">
+            <section class="form-elegant">
+                <div class="card">
+                    <form class="card-body mx-4" ng-submit="loginUser(loginData)" name="loginForm" novalidate>
+                        <div class="text-center">
+                            <h3 class="dark-grey-text mb-5">
+                                <strong>SIGN <span class="green-text">IN</span></strong>
+                            </h3>
+                        </div>
+                        <div class="md-form">
+                            <input ng-disabled="disabled" type="text" id="Form-name" class="form-control"
+                                ng-model="loginData.username" name="username" required>
+                            <label for="Form-name">Name</label>
+                            <span style="color:red" ng-show="loginForm.username.$dirty && loginForm.username.$invalid">
+                                <span ng-show="loginForm.username.$error.required">Username is required.</span>
+                            </span>
+                        </div>
+                        <div class="md-form pb-3">
+                            <span class="showPassword">
+                                <i class="far fa-eye-slash" ng-click="togglePassword()" ng-show="viewPassword"></i>
+                                <i class="far fa-eye" ng-click="togglePassword()" ng-hide="viewPassword"></i>
+                            </span>
+                            <input ng-disabled="disabled" type="{{ typePassword ? 'text' : 'password' }}"
+                                id="Form-pass1" class="form-control" name="password" ng-model="loginData.password"
+                                required>
+                            <label for="Form-pass1">Your password</label>
+                            <span style="color:red" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                                <span ng-show="loginForm.password.$error.required">password is required.</span>
+                            </span>
+                            <p class="font-small d-grid">
+                                <span>Forgot <a href="#!/resetusername" class="green-text ml-1">Username?</a></span>
+                                <span class="float-right">Forgot <a href="#!/resetpassword"
+                                        class="green-text ml-1">Password?</a></span>
+                            </p>
+                        </div>
+                        <div class="text-center mb-3">
+                            <button type="submit"
+                                class="btn btn-success btn-block btn-rounded z-depth-1a waves-effect waves-light"
+                                ng-disabled="loginForm.$invalid || disabled">Sign
+                                in</button>
+                        </div>
+                    </form>
+
+                    <!--Footer-->
+                    <div class="mb-1 mb-2 text-center" ng-show="expired">
+                        <a href="#!/resend"
+                            class="btn btn-success btn-sm btn-rounded z-depth-1a waves-effect waves-light">Resend
+                            activation link
+                        </a>
+                    </div>
+                    <div class="mx-5 mb-4 pt-2 mb-1">
+                        <p class="font-small grey-text d-flex justify-content-center">Not a member?
+                            <a href="#!/register" class="blue-text ml-1 green-text"> Sign Up</a>
+                        </p>
+                    </div>
+
+                </div>
+                <!--/Form without header-->
+
+            </section>
+
+        </div>
+    </div>
+    <div class="row mt-4">
+        <!-- <div class="col-lg-5 col-md-6 m-auto mt-4 zoomIn animated" ng-show="successMsg">
+            <div class="alert alert-success">{{successMsg}}</div>
+        </div>
+        <div class="col-lg-5 col-md-6 m-auto  mt-4 zoomIn animated" ng-show="errorMsg">
+            <div class="alert alert-danger">{{errorMsg}} </div>
+        </div> -->
+        <!-- <div class="col-lg-5 col-md-6 m-auto  mt-4 zoomIn animated" ng-show="errorMsgFacebook">
+                        <div class="alert alert-danger">{{errorMsgFacebook}}</div>
+                    </div> -->
+        <div class="col-lg-5 col-md-6 m-auto text-center mt-4" ng-show="loading">
+            <i class="fas fa-spinner fa-2x fa-spin"></i><br>
+            Please wait...
+        </div>
+    </div>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>

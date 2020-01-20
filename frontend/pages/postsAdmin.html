@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 my-3 text-left">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table product-table">
+                            <thead class="mdb-color lighten-5">
+                                <tr>
+                                    <th class="font-weight-bold">
+                                        <strong>Title</strong>
+                                    </th>
+                                    <th class="font-weight-bold">
+                                            <strong>Author Name</strong>
+                                        </th>
+                                    <th class="font-weight-bold">
+                                        <strong>Edit</strong>
+                                    </th>
+                                    <th class="font-weight-bold">
+                                        <strong>Delete</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="post in posts | orderBy: '-publishDate'">
+                                    <td>
+                                        <h5 class="mt-3">
+                                            <strong>{{post.postHead | limitTo: 100}}</strong>
+                                        </h5>
+                                    </td>
+                                    <td>{{post.createdBy}}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary waves-effect waves-light"
+                                            data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Edit Post" href="#!/edit/{{post.postHead}}"><i class="fas fa-edit"></i>
+                                    </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" ng-click="deletePost(post._id)"
+                                            class="btn btn-sm btn-danger waves-effect waves-light m-0" data-toggle="tooltip"
+                                            data-placement="top" title="" data-original-title="Delete Post"><i
+                                                class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

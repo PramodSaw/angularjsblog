@@ -1,0 +1,214 @@
+<div class="container">
+    <form action="" name="editPost" class="row">
+        <div class="col-sm-12 mb-4">
+            <div class="md-form">
+                <input type="text" id="postHead" name="postHead" ng-model="post.postHead" class="form-control" required>
+                <label for="postHead" class="">Post</label>
+                <div ng-messages="editPost.postHead.$error" ng-show="editPost.postHead.$dirty">
+                    <div ng-message="required">This is required!</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 mb-4">
+            <div class="md-form">
+                <textarea type="text" id="postContent" name="postContent" ng-model="post.postContent"
+                    class="form-control textarea-filed" rows="10"></textarea>
+                <!-- <label for="postContent">Post Content</label> -->
+                <div ng-messages="editPost.postContent.$error" ng-show="editPost.postContent.$dirty">
+                    <div ng-message="required">This is required!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mb-4">
+            <!-- <div class="md-form">
+                <div class="file-field">
+                    <div class="btn btn-primary btn-sm float-left waves-effect waves-light">
+                        <span>Choose file</span>
+                        <input type="file" id="postImage" name="postImage">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate valid" type="text" placeholder="Upload your file">
+                    </div>
+                </div>
+            </div> -->
+              <div class="col-sm-4 mb-4">
+                <input type="file" id="postImage" name="postImage" />
+            </div>
+        </div>
+        <div class="col-sm-3 md-form mt-0">
+            <select name="" class="form-control" ng-model="post.categories" id="category" required>
+                <option value="">Select Category</option>
+                <option value="Travel">Travel</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Business">Business</option>
+                <option value="Trading">Trading</option>
+                <option value="Education">Education</option>
+                <option value="InformationTechnology">Information Technology</option>
+                <option ng-repeat='post in posts' ng-hide="post.categories === 'Adventure'" ng-if="post.categories" value="{{post.categories}}">{{post.categories}}</option>
+            </select>
+        </div>
+        <div class="col-sm-1 text-center font-weight-bold">
+            Or
+        </div>
+        <div class="col-sm-4">
+            <div class="md-form mb-3 mt-0">
+                <input type="text" class="form-control" ng-model="post.categories" id="categories">
+                <label for="categories" class="">Add New Categories</label>
+            </div>
+        </div>
+        <div class="col-sm-12 mb-4">
+            <button type="button" class="btn btn-primary waves-effect waves-light" ng-click="update()">Post</button>
+        </div>
+    </form>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>
+<!-- markItUp! skin -->
+<link rel="stylesheet" type="text/css" href="../node_modules/markitup_editor/markitup/skins/markitup/style.css">
+<!--  markItUp! toolbar skin -->
+<link rel="stylesheet" type="text/css" href="../node_modules/markitup_editor/markitup/sets/default/style.css">
+<!-- markItUp! -->
+<script type="text/javascript" src="../node_modules/markitup_editor/markitup/jquery.markitup.js"></script>
+<!-- markItUp! toolbar settings -->
+<script type="text/javascript" src="../node_modules/markitup_editor/markitup/sets/default/set.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#postContent').markItUp(myHtmlSettings);
+    });
+    myHtmlSettings = {
+        nameSpace: "html", // Useful to prevent multi-instances CSS conflict
+        onShiftEnter: {
+            keepDefault: false,
+            replaceWith: '<br />\n'
+        },
+        onCtrlEnter: {
+            keepDefault: false,
+            openWith: '\n<p>',
+            closeWith: '</p>\n'
+        },
+        onTab: {
+            keepDefault: false,
+            openWith: '     '
+        },
+        markupSet: [{
+                name: 'Heading 1',
+                key: '1',
+                openWith: '<h1(!( class="[![Class]!]")!)>',
+                closeWith: '</h1>',
+                placeHolder: 'Your title here...'
+            },
+            {
+                name: 'Heading 2',
+                key: '2',
+                openWith: '<h2(!( class="[![Class]!]")!)>',
+                closeWith: '</h2>',
+                placeHolder: 'Your title here...'
+            },
+            {
+                name: 'Heading 3',
+                key: '3',
+                openWith: '<h3(!( class="[![Class]!]")!)>',
+                closeWith: '</h3>',
+                placeHolder: 'Your title here...'
+            },
+            {
+                name: 'Heading 4',
+                key: '4',
+                openWith: '<h4(!( class="[![Class]!]")!)>',
+                closeWith: '</h4>',
+                placeHolder: 'Your title here...'
+            },
+            {
+                name: 'Heading 5',
+                key: '5',
+                openWith: '<h5(!( class="[![Class]!]")!)>',
+                closeWith: '</h5>',
+                placeHolder: 'Your title here...'
+            },
+            {
+                name: 'Heading 6',
+                key: '6',
+                openWith: '<h6(!( class="[![Class]!]")!)>',
+                closeWith: '</h6>',
+                placeHolder: 'Your title here...'
+            },
+            {
+                name: 'Paragraph',
+                openWith: '<p(!( class="[![Class]!]")!)>',
+                closeWith: '</p>'
+            },
+            {
+                separator: '---------------'
+            },
+            {
+                name: 'Bold',
+                key: 'B',
+                openWith: '<strong>',
+                closeWith: '</strong>'
+            },
+            {
+                name: 'Italic',
+                key: 'I',
+                openWith: '<em>',
+                closeWith: '</em>'
+            },
+            {
+                name: 'Stroke through',
+                key: 'S',
+                openWith: '<del>',
+                closeWith: '</del>'
+            },
+            {
+                separator: '---------------'
+            },
+            {
+                name: 'Ul',
+                openWith: '<ul>\n',
+                closeWith: '</ul>\n'
+            },
+            {
+                name: 'Ol',
+                openWith: '<ol>\n',
+                closeWith: '</ol>\n'
+            },
+            {
+                name: 'Li',
+                openWith: '<li>',
+                closeWith: '</li>'
+            },
+            {
+                separator: '---------------'
+            },
+            {
+                name: 'Picture',
+                key: 'P',
+                replaceWith: '<img src="[![Source:!:http://]!]" alt="[![Alternative text]!]" />'
+            },
+            {
+                name: 'Link',
+                key: 'L',
+                openWith: '<a href="[![Link:!:http://]!]"(!( title="[![Title]!]")!)>',
+                closeWith: '</a>',
+                placeHolder: 'Your text to link...'
+            },
+            {
+                separator: '---------------'
+            },
+            {
+                name: 'Clean',
+                replaceWith: function (h) {
+                    return h.selection.replace(/<(.*?)>/g, "")
+                }
+            },
+            {
+                name: 'Preview',
+                call: 'preview',
+                className: 'preview'
+            },
+            {
+                name: 'BR',
+                openWith: '<br />'
+            }
+        ]
+    }
+</script>

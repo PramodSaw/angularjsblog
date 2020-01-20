@@ -1,0 +1,124 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mb-4 mx-auto">
+            <div class="card testimonial-card editProfile">
+                <div class="card-up purple-gradient">
+                </div>
+                <div class="avatar mx-auto white">
+                    <img src="images/profile/{{user.userImage}}" ng-src="{{img}}" class="rounded-circle profile-img-big"
+                        err-src="images/default.jpg">
+                    <label class="camera-overlay" for="userImage"><img src="images/photo-camera.png" alt="">
+                        <input type='file' id="userImage" name="userImage" ng-model-instant
+                            onchange="angular.element(this).scope().imageUpload(event)" />
+                    </label>
+                </div>
+                <form class="card-body" name="usernameForm" novalidate>
+                    <div class="md-form input-group">
+                        <div class="input-group-prepend" style="position: absolute;right: 0">
+                            <span class="input-group-text align-items-start md-addon pr-4">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                        </div>
+                        <input ng-disabled="disabled" type="text" id="Form-name" class="form-control userName"
+                            ng-model="user.name" name="newName" required>
+                        <span style="color:red" ng-show="loginForm.newName.$dirty && loginForm.username.$invalid">
+                            <span ng-show="loginForm.newName.$error.required">Name is required.</span>
+                        </span>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-6">Username</div>
+                        <div class="col-sm-6"><b>{{user.username}}</b></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">Email Id</div>
+                        <div class="col-sm-6"><b>{{user.email}}</b></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">Phone</div>
+                        <div class="col-sm-6 md-form input-group mt-0 px-2">
+                            <div class="input-group-prepend" style="position:absolute;right: 0">
+                                <span class="input-group-text align-items-start md-addon pr-4">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span>
+                            </div>
+                            <input ng-disabled="disabled" type="text" id="newPhone" class="form-control"
+                                ng-model="user.phone" name="newPhone" required>
+                            <span style="color:red" ng-show="loginForm.newPhone.$dirty && loginForm.username.$invalid">
+                                <span ng-show="loginForm.newPhone.$error.required">Phone Number is required.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- <input type='file' id="userImage" name="userImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" /> -->
+                    <div class="md-form text-center">
+                        <button type="submit" ng-click="profileUpdate()" class="btn btn-success btn-rounded">Update
+                            &nbsp; Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>
+<!-- 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mb-4 mx-auto">
+            <div class="card testimonial-card editProfile">
+                <div class="card-up purple-gradient">
+                </div>
+                <div class="avatar mx-auto white">
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img(32).jpg" ng-src="{{img}}" class="rounded-circle">
+                </div>
+                <form class="card-body" name="usernameForm" ng-submit="updateProfile(newName, newPhone, profileImage)" novalidate>
+                    <div class="md-form input-group">
+                        <div class="input-group-prepend" style="position: absolute;right: 0">
+                            <span class="input-group-text align-items-start md-addon pr-4">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                        </div>
+                        <input ng-disabled="disabled" type="text" id="Form-name" class="form-control userName"
+                            ng-model="newName" name="newName" required>
+                        <span style="color:red" ng-show="loginForm.newName.$dirty && loginForm.username.$invalid">
+                            <span ng-show="loginForm.newName.$error.required">Name is required.</span>
+                        </span>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-6">Username</div>
+                        <div class="col-sm-6"><b>{{newUsername}}</b></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">Email Id</div>
+                        <div class="col-sm-6"><b>{{newEmail}}</b></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">Phone</div>
+                        <div class="col-sm-6 md-form input-group mt-0 px-2">
+                            <div class="input-group-prepend" style="position:absolute;right: 0">
+                                <span class="input-group-text align-items-start md-addon pr-4">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span>
+                            </div>
+                            <input ng-disabled="disabled" type="text" id="newPhone" class="form-control"
+                                ng-model="newPhone" name="newPhone" required>
+                            <span style="color:red" ng-show="loginForm.newPhone.$dirty && loginForm.username.$invalid">
+                                <span ng-show="loginForm.newPhone.$error.required">Phone Number is required.</span>
+                            </span>
+                        </div>
+                    </div>
+                    <input type='file' id="profileImage" ng-model="profileImage" name="profileImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" />
+                    <div class="md-form text-center">
+                        <button type="submit" class="btn btn-success btn-rounded">Update &nbsp; Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>
+
+<img class="thumb" ng-src="{{img}}" />
+{{file}} -->

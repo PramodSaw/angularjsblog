@@ -1,0 +1,359 @@
+<div class="cont container mt-5 p-0" ng-class="class">
+        <div class="form sign-in card shadow-none">
+            <form class="card-body mx-sm-4 m-0 p-0 p-md-3" ng-submit="loginUser(loginData)" name="loginForm" novalidate>
+                <div class="text-center">
+                    <h3 class="dark-grey-text mb-5">
+                        <strong>SIGN <span class="green-text">IN</span></strong>
+                    </h3>
+                </div>
+                <div class="md-form pb-3">
+                    <input ng-disabled="disabled" type="text" id="Form-name" class="form-control"
+                        ng-model="loginData.username" name="username" required>
+                    <label for="Form-name">Name</label>
+                    <span style="color:red" ng-show="loginForm.username.$dirty && loginForm.username.$invalid">
+                        <span ng-show="loginForm.username.$error.required">Username is required.</span>
+                    </span>
+                </div>
+                <div class="md-form">
+                    <span class="showPassword">
+                        <i class="far fa-eye-slash" ng-click="togglePassword()" ng-show="viewPassword"></i>
+                        <i class="far fa-eye" ng-click="togglePassword()" ng-hide="viewPassword"></i>
+                    </span>
+                    <input ng-disabled="disabled" type="{{ typePassword ? 'text' : 'password' }}" id="Form-pass1"
+                        class="form-control" name="password" ng-model="loginData.password" required>
+                    <label for="Form-pass1">Password</label>
+                    
+                </div>
+                <div class="pb-4">
+                    <span style="color:red" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                        <span ng-show="loginForm.password.$error.required">password is required.</span>
+                    </span>
+                    <p class="font-small d-grid">
+                        <span>Forgot <a href="#!/resetusername" class="green-text ml-1">Username?</a></span>
+                        <span class="float-right">Forgot <a href="#!/resetpassword"
+                                class="green-text ml-1">Password?</a></span>
+                    </p>
+                </div>
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-success btn-block btn-rounded z-depth-1a waves-effect waves-light"
+                        ng-disabled="loginForm.$invalid || disabled">Sign
+                        in</button>
+                </div>
+            </form>
+    
+            <!--Footer-->
+            <div class="mb-1 mb-2 text-center" ng-show="expired">
+                <a href="#!/resend" class="btn btn-success btn-sm btn-rounded z-depth-1a waves-effect waves-light">Resend
+                    activation link
+                </a>
+            </div>
+            <div class="mx-5 mb-4 pt-2 mb-1">
+                <p class="font-small grey-text d-flex justify-content-center">Not a member?
+                    <a href="javascript:void(0)" class="blue-text ml-1 green-text" ng-click="addClass()"> Sign Up</a>
+                </p>
+            </div>
+        </div>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h2>New here?</h2>
+                    <p>Sign up and discover great amount of new opportunities!</p>
+                </div>
+                <div class="img__text m--in">
+                    <h2>One of us?</h2>
+                    <p>If you already has an account, just sign in. We've missed you!</p>
+                </div>
+                <div class="img__btn" ng-click="changeClass()">
+                    <span class="m--up">Sign Up</span>
+                    <span class="m--in">Sign In</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <section class="form-light">
+                    <div class="card card-image shadow-none">
+                        <form ng-submit="regUser(regData)" class="row" name="regForm">
+                            <div class="text-center col-sm-12">
+                                <h3 class="mb-5 font-weight-bold">
+                                    <strong>SIGN</strong>
+                                    <a class="green-text font-weight-bold">
+                                        <strong> UP</strong>
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="md-form">
+                                    <input type="text" id="Form-name" class="form-control" ng-model="regData.name"
+                                        name="name" maxlength="30" minlength="3" required ng-pattern="/^[a-zA-Z\s]+$/">
+                                    <label for="Form-name" class="">Name</label>
+                                    <span class="text-red" ng-show="regForm.name.$dirty && regForm.name.$invalid">
+                                        <span ng-show="regForm.name.$error.required">Name is required.<br></span>
+                                    </span>
+                                    <span class="text-red"
+                                        ng-show="regForm.name.$error.minlength  || regForm.name.$error.pattern">
+                                        Must be at least 3 characters, max 30, no special characters or numbers.<br>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="md-form">
+                                    <input type="text"
+                                        ng-class="{'invalid-input': validUserName==='That username is already taken'}"
+                                        id="Form-username" class="form-control" ng-model="regData.username" name="username"
+                                        maxlength="30" minlength="3" required ng-keyup="checkUsername(regData)">
+                                    <label for="Form-username" class="">User Name</label>
+                                    <span class="text-red" ng-show="regForm.username.$dirty && regForm.username.$invalid">
+                                        <span ng-show="regForm.username.$error.required">Username is required.<br></span>
+                                    </span>
+                                    <span class="text-red" ng-show="regForm.username.$error.minlength">
+                                        minLength should be 3<br>
+                                    </span>
+                                    <span class="text-red" ng-class="{'green-text': validUserName==='Valid username'}"
+                                        ng-show="!regForm.username.$error.required"><i ng-show="validUserName"
+                                            class="fas fa-spinner fa-spin"></i> {{validUserName}}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="md-form">
+                                    <input type="email"
+                                        ng-class="{'invalid-input': validEmail==='That email is already taken'}"
+                                        name="email" id="Form-email5" class="form-control" ng-model="regData.email" required
+                                        ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" maxlength="50"
+                                        ng-keyup="checkEmail(regData)">
+                                    <label for="Form-email5" class="">Email</label>
+                                    <span class="text-red" ng-show="regForm.email.$dirty && regForm.email.$invalid">
+                                        <span ng-show="regForm.email.$error.required">Email is required.</span>
+                                        <span ng-show="regForm.email.$error.email || regForm.email.$error.pattern">Invalid
+                                            email
+                                            address.</span>
+                                    </span>
+                                    <span class="text-red" ng-class="{'green-text': validEmail==='Valid email'}"
+                                        ng-show="!regForm.email.$error.email && !regForm.email.$error.pattern && !regForm.email.$error.required"><i
+                                            ng-show="validUserName" class="fas fa-spinner fa-spin"></i>
+                                        {{validEmail}}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="md-form">
+                                    <input type="text" name="phone" id="Form-phone" class="form-control"
+                                        ng-model="regData.phone" required ng-pattern="/^[+-]?[0-9]+(,[0-9]+)?$/"
+                                        maxlength="13" minlength="10">
+                                    <label for="Form-phone" class="">Phone Number</label>
+                                    <span class="text-red" ng-show="regForm.phone.$dirty && regForm.phone.$invalid">
+                                        <span ng-show="regForm.phone.$error.required">Phone is required.</span>
+                                        <span ng-show="regForm.phone.$error.pattern">Invalid phone number.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="md-form pb-3">
+                                    <span class="showPassword">
+                                        <i class="far fa-eye-slash" ng-click="togglePassword()" ng-show="viewPassword"></i>
+                                        <i class="far fa-eye" ng-click="togglePassword()" ng-hide="viewPassword"></i>
+                                    </span>
+                                    <input type="{{ typePassword ? 'text' : 'password' }}" name="password" id="Form-pass"
+                                        class="form-control" ng-model="firstPassword"
+                                        ng-pattern="'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}'"
+                                        required>
+                                    <label for="Form-pass" class="">Password</label>
+                                    <span class="text-red" ng-show="regForm.password.$dirty && regForm.password.$invalid">
+                                        <span ng-show="regForm.password.$error.required">Password is required.<br></span>
+                                        <span ng-show="regForm.password.$error.pattern">password must contain at least 1
+                                            uppercase, 1 lowercase, 1 special character and 1 number</span>
+                                    </span>
+    
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="md-form pb-3">
+                                    <span class="showPassword">
+                                        <i class="far fa-eye-slash" ng-click="togglePassword()" ng-show="viewPassword"></i>
+                                        <i class="far fa-eye" ng-click="togglePassword()" ng-hide="viewPassword"></i>
+                                    </span>
+                                    <input type="{{ typePassword ? 'text' : 'password' }}" name="confirmPassword"
+                                        id="Form-pass5" class="form-control" ng-model="confirm"
+                                        ng-change="regData.password = confirm" match="{{[firstPassword]}}" required>
+                                    <label for="Form-pass5" class="">Confirm Password</label>
+                                    <span class="text-red"
+                                        ng-show="regForm.confirmPassword.$dirty && regForm.confirmPassword.$invalid">
+                                        <span ng-show="regForm.confirmPassword.$error.required">Password is required.</span>
+                                    </span>
+                                    <p class="text-red" ng-show="!confirmed &&!regForm.confirmPassword.$error.required">
+                                        Password do not match</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+                            <div class="col-sm-12 d-flex align-items-center mb-4">
+    
+                                <!--Grid column-->
+                                <div class="row text-center mb-3 col-md-12">
+                                    <button type="submit"
+                                        class="col-sm-6 m-auto btn btn-success btn-block btn-rounded z-depth-1 waves-effect waves-light"
+                                        ng-disabled="regForm.username.$dirty && regForm.username.$invalid || regForm.password.$dirty && regForm.password.$invalid || regForm.confirmPassword.$dirty && regForm.confirmPassword.$invalid ||
+                                        regForm.email.$dirty && regForm.email.$invalid || regForm.$error.required">Sign
+                                        in</button>
+    
+                                </div>
+                                <!--Grid column-->
+                            </div>
+                            <!--Grid row-->
+    
+                            <!--Grid column-->
+                            <div class="col-md-12">
+                                <p class="font-small d-flex justify-content-center">Have an account?
+                                    <a href="javascript:void(0)" class="green-text ml-1 font-weight-bold" ng-click="removeClass()"> Log in</a>
+                                </p>
+                            </div>
+                            <!--Grid column-->
+    
+                        </form>
+                    </div>
+                    <!--/Form without header-->
+    
+                </section>
+                <div class="px-3 text-center mt-4" ng-show="loading">
+                    <i class="fas fa-spinner fa-2x fa-spin"></i><br>
+                    Please wait...
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- <div class="container">
+    <div class="row mt-5 text-left">
+        <div class="col-lg-10 col-md-12 m-auto mb-4">
+            <section class="form-light">
+                <div class="card card-image">
+                    <form ng-submit="regUser(regData)" class=" py-4 px-5 row" name="regForm">
+                        <div class="text-center col-sm-12">
+                            <h3 class="mb-5 mt-4 font-weight-bold">
+                                <strong>SIGN</strong>
+                                <a class="green-text font-weight-bold">
+                                    <strong> UP</strong>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form">
+                                <input type="text" id="Form-name" class="form-control" ng-model="regData.name"
+                                    name="name" maxlength="30" minlength="3" required ng-pattern="/^[a-zA-Z\s]+$/">
+                                <label for="Form-name" class="">Name</label>
+                                <span class="text-red" ng-show="regForm.name.$dirty && regForm.name.$invalid">
+                                    <span ng-show="regForm.name.$error.required">Name is required.<br></span>
+                                </span>
+                                <span class="text-red"
+                                    ng-show="regForm.name.$error.minlength  || regForm.name.$error.pattern">
+                                    Must be at least 3 characters, max 30, no special characters or numbers.<br>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form">
+                                <input type="text"
+                                    ng-class="{'invalid-input': validUserName==='That username is already taken'}"
+                                    id="Form-username" class="form-control" ng-model="regData.username" name="username"
+                                    maxlength="30" minlength="3" required ng-keyup="checkUsername(regData)">
+                                <label for="Form-username" class="">User Name</label>
+                                <span class="text-red" ng-show="regForm.username.$dirty && regForm.username.$invalid">
+                                    <span ng-show="regForm.username.$error.required">Username is required.<br></span>
+                                </span>
+                                <span class="text-red" ng-show="regForm.username.$error.minlength">
+                                    minLength should be 3<br>
+                                </span>
+                                <span class="text-red" ng-class="{'green-text': validUserName==='Valid username'}"
+                                    ng-show="!regForm.username.$error.required"><i ng-show="validUserName"
+                                        class="fas fa-spinner fa-spin"></i> {{validUserName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form">
+                                <input type="email"
+                                    ng-class="{'invalid-input': validEmail==='That email is already taken'}"
+                                    name="email" id="Form-email5" class="form-control" ng-model="regData.email" required
+                                    ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" maxlength="50"
+                                    ng-keyup="checkEmail(regData)">
+                                <label for="Form-email5" class="">Email</label>
+                                <span class="text-red" ng-show="regForm.email.$dirty && regForm.email.$invalid">
+                                    <span ng-show="regForm.email.$error.required">Email is required.</span>
+                                    <span ng-show="regForm.email.$error.email || regForm.email.$error.pattern">Invalid
+                                        email
+                                        address.</span>
+                                </span>
+                                <span class="text-red" ng-class="{'green-text': validEmail==='Valid email'}"
+                                    ng-show="!regForm.email.$error.email && !regForm.email.$error.pattern && !regForm.email.$error.required"><i
+                                        ng-show="validUserName" class="fas fa-spinner fa-spin"></i>
+                                    {{validEmail}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form">
+                                <input type="text" name="phone" id="Form-phone" class="form-control" ng-model="regData.phone" required ng-pattern="/^[+-]?[0-9]+(,[0-9]+)?$/" maxlength="13" minlength="10">
+                                <label for="Form-phone" class="">Phone Number</label>
+                                <span class="text-red" ng-show="regForm.phone.$dirty && regForm.phone.$invalid">
+                                    <span ng-show="regForm.phone.$error.required">Phone is required.</span>
+                                    <span ng-show="regForm.phone.$error.pattern">Invalid phone number.</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form pb-3">
+                                <span class="showPassword">
+                                    <i class="far fa-eye-slash" ng-click="togglePassword()" ng-show="viewPassword"></i>
+                                    <i class="far fa-eye" ng-click="togglePassword()" ng-hide="viewPassword"></i>
+                                </span>
+                                <input type="{{ typePassword ? 'text' : 'password' }}" name="password" id="Form-pass"
+                                    class="form-control" ng-model="firstPassword"
+                                    ng-pattern="'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}'"
+                                    required>
+                                <label for="Form-pass" class="">Password</label>
+                                <span class="text-red" ng-show="regForm.password.$dirty && regForm.password.$invalid">
+                                    <span ng-show="regForm.password.$error.required">Password is required.<br></span>
+                                    <span ng-show="regForm.password.$error.pattern">password must contain at least 1
+                                        uppercase, 1 lowercase, 1 special character and 1 number</span>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form pb-3">
+                                <span class="showPassword">
+                                    <i class="far fa-eye-slash" ng-click="togglePassword()" ng-show="viewPassword"></i>
+                                    <i class="far fa-eye" ng-click="togglePassword()" ng-hide="viewPassword"></i>
+                                </span>
+                                <input type="{{ typePassword ? 'text' : 'password' }}" name="confirmPassword"
+                                    id="Form-pass5" class="form-control" ng-model="confirm"
+                                    ng-change="regData.password = confirm" match="{{[firstPassword]}}" required>
+                                <label for="Form-pass5" class="">Confirm Password</label>
+                                <span class="text-red"
+                                    ng-show="regForm.confirmPassword.$dirty && regForm.confirmPassword.$invalid">
+                                    <span ng-show="regForm.confirmPassword.$error.required">Password is required.</span>
+                                </span>
+                                <p class="text-red" ng-show="!confirmed &&!regForm.confirmPassword.$error.required">Password do not match</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center mb-4">
+                            <div class="row text-center mb-3 col-md-12">
+                                <button type="submit"
+                                    class="col-sm-6 m-auto btn btn-success btn-block btn-rounded z-depth-1 waves-effect waves-light"
+                                    ng-disabled="regForm.username.$dirty && regForm.username.$invalid || regForm.password.$dirty && regForm.password.$invalid || regForm.confirmPassword.$dirty && regForm.confirmPassword.$invalid ||
+                                regForm.email.$dirty && regForm.email.$invalid || regForm.$error.required">Sign
+                                    in</button>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="font-small d-flex justify-content-center">Have an account?
+                                <a href="#!/login" class="green-text ml-1 font-weight-bold"> Log in</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+            <div class="px-3 text-center mt-4" ng-show="loading">
+                <i class="fas fa-spinner fa-2x fa-spin"></i><br>
+                Please wait...
+            </div>
+        </div>
+    </div>
+</div> -->
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>
+

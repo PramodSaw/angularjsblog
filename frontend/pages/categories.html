@@ -1,0 +1,96 @@
+<div class="container mt-3 mt-sm-5">
+    <div class="row posts">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 mb-4" ng-repeat="post in posts | orderBy: '-publishDate' | filter: category">
+                    <!--Card-->
+                    <div class="card">
+                        <!--Card image-->
+                        <div class="view overlay">
+                            <img err-src="images/default.jpg" ng-src="images/uploads/{{post.postImage}}"
+                                class="card-img-top" alt="sample">
+                            <a href="#!/{{post.postHead}}">
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <div class="blog-date text-white position-absolute text-center">
+                            <h2 class="p-1 m-0">{{post.publishDate | date : "dd"}}</h2>
+                            <span class="p-1">{{post.publishDate | date : "MMM yy"}}</span>
+                        </div>
+                        <!--/.Card image-->
+                        <!--Button-->
+                        <a class="btn-floating btn-action ml-auto mr-4 mdb-color pink waves-effect waves-light"
+                            href="#!/{{post.postHead}}">
+                            <i class="fas fa-chevron-right pl-1"></i>
+                        </a>
+                        <div class="rgba-indigo-slight">
+                            <ul class="list-unstyled list-inline font-small my-2">
+                                <li class="list-inline-item px-2">
+                                    <a href="#" class="mdb-color-text">
+                                        <i class="far fa-user pr-1"></i> {{post.createdBy}}</a>
+                                </li>
+                                <li class="list-inline-item px-2">
+                                    <a href="javascript:void(0)" class="mdb-color-text">
+                                        <i class="far fa-comments pr-1"></i>{{post.comments.length}}</a>
+                                </li>
+                                <li class="list-inline-item px-2">
+                                    <div class="dropdown">
+                                        <a class="mdb-color-text" data-toggle="dropdown">
+                                            <i class="far fa-thumbs-up pr-1"
+                                                ng-class="{textBlue: name === post.likedBy[likedUser]}"
+                                                ng-click="likeBlog()"> </i>{{post.likes}}</a>
+                                        <div class="dropdown-menu" ng-hide="post.likes === 0">
+                                            <h5 class="dropdown-header">Liked By</h5>
+                                            <a class="dropdown-item" href="#"
+                                                ng-repeat="likedBy in post.likedBy">{{likedBy}}</a>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="list-inline-item px-2">
+                                    <div class="dropdown">
+                                        <a class="mdb-color-text" data-toggle="dropdown">
+                                            <i class="far fa-thumbs-down pr-1"
+                                                ng-class="{textBlue: name === post.dislikedBy[dislikedUser]}"
+                                                ng-click="dislikeBlog()"> </i>{{post.dislikes}}</a>
+                                        <div class="dropdown-menu" ng-hide="post.dislikes === 0">
+                                            <h5 class="dropdown-header">Disliked By</h5>
+                                            <a class="dropdown-item" href="#"
+                                                ng-repeat="dislikedBy in post.dislikedBy">{{dislikedBy}}</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item px-2"><i class="fas fa-bolt"></i> {{post.categories}}</li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <!--Title-->
+                            <h4 class="card-title mb-3"><a
+                                    href="#!/{{post.postHead}}">{{post.postHead | limitTo: 63 |  replace:'-':' '}}{{post.postHead.length > 63 ? '...' : ''}}</a>
+                            </h4>
+                            <!--Text-->
+                            <p class="font-small grey-dark-text mb-0" ng-bind-html="post.postContent | strLimit: 215">
+                            </p>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-3 mb-4">
+            <!-- Card -->
+            <div class="card card-cascade narrower">
+                <!-- Card content -->
+                <div class="card-body card-body-cascade px-2">
+                    <!-- Text -->
+                    <h3 class="font-weight-bold px-2">Categories</h3>
+                    <div class="px-0">
+                        <a href="#!/categories/{{post.categories}}" ng-repeat="post in posts | unique:'categories'" class="btn btn-btn btn-outline-primary waves-effect mx-2 px-3 py-2" ng-if="post.categories" value="{{post.categories}}">{{post.categories}}</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card -->
+        </div>
+    </div>
+</div>
+<toaster-container toaster-options="{'close-button':true}"></toaster-container>
