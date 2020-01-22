@@ -64,7 +64,7 @@ module.exports = (router) => {
         let seconds = date_ob.getSeconds();
         console.log(file)
         var filename = year + "-" + month + "-" + date + "_" + hours + "-" + minutes + "-" + seconds + "_" + file.originalname
-        fs.rename(file.path, '../frontend/images/uploads/' + filename, function (err) {
+        fs.rename(file.path, 'frontend/images/uploads/' + filename, function (err) {
           if (err) throw err;
           console.log('file uploaded...');
           let newBlog = new Blog({
@@ -261,7 +261,7 @@ module.exports = (router) => {
         let seconds = date_ob.getSeconds();
         console.log(file)
         var filename = year + "-" + month + "-" + date + "_" + hours + "-" + minutes + "-" + seconds + "_" + file.originalname
-        fs.rename(file.path, '../frontend/images/uploads/' + filename, function (err) {
+        fs.rename(file.path, 'frontend/images/uploads/' + filename, function (err) {
           if (err) throw err;
           Blog.findOneAndUpdate({ _id: req.params.id }, {
             $set: {

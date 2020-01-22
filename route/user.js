@@ -729,7 +729,7 @@ module.exports = (router) => {
 
                 var filename = year + "-" + month + "-" + date + "_" + hours + "-" + minutes + "-" + seconds + "_" + file.originalname;
                 console.log(file, filename)
-                fs.rename(file.path, '../frontend/images/profile/' + filename, function (err) {
+                fs.rename(file.path, 'frontend/images/profile/' + filename, function (err) {
                     if (err) throw err;
                     User.findOneAndUpdate({ _id: req.params.id }, {
                         $set: {
