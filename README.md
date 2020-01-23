@@ -1,1 +1,1 @@
-# angularjsblog
+# Mean Stack blog, login and registration
