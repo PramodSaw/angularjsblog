@@ -1,6 +1,6 @@
 // Include app dependency on ngMaterial
 var app = angular.module('meanStack', ['ngMessages', 'ngRoute', 'angularFileUpload', 'ngSanitize', 'userServices', 'authServices', 'toaster', 'ngAnimate', 'angular.filter'])
-app.config(['$routeProvider', '$httpProvider', '$locationProvider',  function($routeProvider, $httpProvider, $locationProvider){
+app.config(['$routeProvider', '$httpProvider',  function($routeProvider, $httpProvider){
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $routeProvider
     .when('/', {
@@ -93,7 +93,6 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',  function($r
     })
     
     .otherwise({ redirectTo: '/'});
-    $locationProvider.html5Mode(true);
     
 }])
 
