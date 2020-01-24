@@ -5,7 +5,7 @@ This is an application demonstrating the basic components needed for a Single Pa
 
 <pre><code>$ cd angularjsblog<br/></code>
  
-<code>$ node server.js Or nodemon</code></pre>
+<code>$ node server.js Or nodemon</code></pre> 
 
 -- Access development server at: http://localhost:5000
 
