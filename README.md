@@ -4,9 +4,9 @@ Clone or Download
 
 <h4>Development</h4>
 
-<code>$ cd angularjsblog<br/></code>
+<pre><code>$ cd angularjsblog<br/></code>
  
-<code>$ node server.js Or nodemon</code>
+<code>$ node server.js Or nodemon</code></pre>
 
 -- Access development server at: http://localhost:5000
 
