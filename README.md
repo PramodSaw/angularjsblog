@@ -1,6 +1,5 @@
  <h3> Mean Stack blog, login and registration</h3>
-
-Clone or Download
+This is an application demonstrating the basic components needed for a Single Page Application using MongoDB, ExpressJS, Angularjs, and NodeJS.
 
 <h4>Development</h4>
 
