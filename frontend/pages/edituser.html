@@ -118,10 +118,10 @@
                 <label>Current Permission:&nbsp&nbsp </label><strong>{{ newPermission }}</strong>
                 <br>
                 <!-- User Permission Button -->
-                <button ng-disabled="disableUser" ng-click="updatePermissions('user');" type="button"
+                <button ng-disabled="disableUser" ng-hide="newPermission === 'admin' && username === newUsername" ng-click="updatePermissions('user');" type="button"
                     class="btn btn-success">User</button>&nbsp
                 <!-- Moderator Permission Button -->
-                <button ng-disabled="disableModerator" ng-click="updatePermissions('moderator');" type="button"
+                <button ng-disabled="disableModerator" ng-hide="newPermission === 'admin' && username === newUsername" ng-click="updatePermissions('moderator');" type="button"
                     class="btn btn-info">Moderator</button>&nbsp
                 <!-- Admin Permission Button -->
                 <button ng-disabled="disableAdmin" ng-click="updatePermissions('admin');" type="button"
