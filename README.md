@@ -10,3 +10,6 @@ This is an application demonstrating the basic components needed for a Single Pa
 -- Access development server at: http://localhost:5000
 
 -- Access API at: http://localhost:5000
+
+<h4>Demo</h4>
+https://angularjsblogs.herokuapp.com/?#!/
