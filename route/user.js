@@ -30,8 +30,9 @@ module.exports = (router) => {
     });
     var options = {
         auth: {
-            api_user: 'pramod_saw',
-            api_key: 'Ajayaarya@1'
+            //api_user: 'pramod_saw',
+            //api_key: 'Ajayaarya@1',
+            api_key: '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'
         }
     }
 
@@ -73,7 +74,7 @@ module.exports = (router) => {
                     }
                 } else {
                     var email = {
-                        from: 'MEAN Stack Staff, staff@localhost.com',
+                        from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                         to: user.email,
                         subject: 'Your Activation Link',
                         text: 'Hello ' + user.name + ', thank you for registering at localhost.com. Please click on the following link to complete your activation: http://localhost:3000/activate/' + user.temporarytoken,
@@ -127,7 +128,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -158,7 +159,7 @@ module.exports = (router) => {
                         } else if (!user.active) {
                             res.json({ success: false, message: 'Account is not yet activated. Please check your e-mail for activation link.', expired: true }); // Account is not activated 
                         } else {
-                            var token = jwt.sign({ username: user.username, email: user.email, name: user.name, phone: user.phone, id: user._id, userImage: user.userImage }, config.secret, { expiresIn: '24h' }); // Logged in: Give user token
+                            var token = jwt.sign({username: user.username, email: user.email, name: user.name, phone: user.phone, id: user._id, userImage: user.userImage }, config.secret, { expiresIn: '24h' }); // Logged in: Give user token
                             res.json({
                                 success: true, message: 'User authenticated!', token: token, user: {
                                     username: user.username
@@ -177,7 +178,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -206,13 +207,13 @@ module.exports = (router) => {
     });
 
     // Route to verify user credentials before re-sending a new activation link 
-    router.post('/resend', function (req, res) {
+     router.post('/resend', function (req, res) {
         User.findOne({ username: req.body.username }).select('username password active').exec(function (err, user) {
             if (err) throw err;
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -224,7 +225,7 @@ module.exports = (router) => {
                         console.log(err); // If error with sending e-mail, log to console/terminal
                     } else {
                         console.log(info); // Log success message to console if sent
-                        console.log(user.email); // Display e-mail that it was sent to
+                        console.log(user.email); // Display e-mail that it was to 
                     }
                 });
                 res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
@@ -261,7 +262,7 @@ module.exports = (router) => {
                     console.log(err);
                 } else {
                     var email = {
-                        from: 'MEAN Stack Staff, staff@localhost.com',
+                        from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                         to: user.email,
                         subject: 'Activation Link Request',
                         text: 'Hello ' + user.name + ', You recently requested a new account activation link. Please click on the following link to complete your activation:http://localhost:3000/activate/' + user.temporarytoken,
@@ -294,7 +295,7 @@ module.exports = (router) => {
                         res.json({ success: false, message: 'E-mail was not found' })
                     } else {
                         var email = {
-                            from: 'MEAN Stack Staff, staff@localhost.com',
+                            from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                             to: user.email,
                             subject: 'Username Request',
                             text: 'Hello ' + user.name + ', You recently requested your username. Please save it in your file:' + user.username,
@@ -326,7 +327,7 @@ module.exports = (router) => {
                         res.json({ success: false, message: err });
                     } else {
                         var email = {
-                            from: 'MEAN Stack Staff, staff@localhost.com',
+                            from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                             to: user.email,
                             subject: 'Reset Password Request',
                             text: 'Hello ' + user.name + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/reset/' + user.resettoken,
@@ -377,7 +378,7 @@ module.exports = (router) => {
                     } else {
 
                         var email = {
-                            from: 'MEAN Stack Staff, staff@localhost.com',
+                            from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                             to: user.email,
                             subject: 'Password Recently Reset',
                             text: 'Hello ' + user.name + ', This e-mail is to notify you that your password was recently reset at localhost.com',
@@ -400,7 +401,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: user.email,
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -434,7 +435,7 @@ module.exports = (router) => {
                             } else {
                                 // If save succeeds, create e-mail object
                                 var email = {
-                                    from: 'MEAN Stack Staff, staff@localhost.com',
+                                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                     to: user.email,
                                     subject: 'Account Activated',
                                     text: 'Hello ' + user.name + ', Your account has been successfully activated!',
@@ -480,7 +481,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -513,7 +514,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -534,7 +535,7 @@ module.exports = (router) => {
                     if (err) {
                         // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                         var email = {
-                            from: 'MEAN Stack Staff, staff@localhost.com',
+                            from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                             to: 'pramodhbagh@gmail.com',
                             subject: 'Error Logged',
                             text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -580,7 +581,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -610,7 +611,7 @@ module.exports = (router) => {
                             if (err) {
                                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                                 var email = {
-                                    from: 'MEAN Stack Staff, staff@localhost.com',
+                                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                     to: 'pramodhbagh@gmail.com',
                                     subject: 'Error Logged',
                                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -643,7 +644,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -671,7 +672,7 @@ module.exports = (router) => {
                             if (err) {
                                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                                 var email = {
-                                    from: 'MEAN Stack Staff, staff@localhost.com',
+                                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                     to: 'pramodhbagh@gmail.com',
                                     subject: 'Error Logged',
                                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -828,7 +829,7 @@ module.exports = (router) => {
             if (err) {
                 // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                 var email = {
-                    from: 'MEAN Stack Staff, staff@localhost.com',
+                    from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                     to: 'pramodhbagh@gmail.com',
                     subject: 'Error Logged',
                     text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -858,7 +859,7 @@ module.exports = (router) => {
                                 if (err) {
                                     // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                                     var email = {
-                                        from: 'MEAN Stack Staff, staff@localhost.com',
+                                        from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                         to: 'pramodhbagh@gmail.com',
                                         subject: 'Error Logged',
                                         text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -905,7 +906,7 @@ module.exports = (router) => {
                                 if (err) {
                                     // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                                     var email = {
-                                        from: 'MEAN Stack Staff, staff@localhost.com',
+                                        from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                         to: 'pramodhbagh@gmail.com',
                                         subject: 'Error Logged',
                                         text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -952,7 +953,7 @@ module.exports = (router) => {
                                 if (err) {
                                     // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                                     var email = {
-                                        from: 'MEAN Stack Staff, staff@localhost.com',
+                                        from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                         to: 'pramodhbagh@gmail.com',
                                         subject: 'Error Logged',
                                         text: 'The following error has been reported in the MEAN Stack Application: ' + err,
@@ -999,7 +1000,7 @@ module.exports = (router) => {
                                 if (err) {
                                     // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
                                     var email = {
-                                        from: 'MEAN Stack Staff, staff@localhost.com',
+                                        from: 'MEAN Stack Staff, pramodhbagh@gmail.com',
                                         to: 'pramodhbagh@gmail.com',
                                         subject: 'Error Logged',
                                         text: 'The following error has been reported in the MEAN Stack Application: ' + err,
